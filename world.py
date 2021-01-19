@@ -17,12 +17,12 @@ class Agent:
         """ Computing the next action to enact """
         # TODO: Implement the agent's decision mechanism
         self._action = 0
+        # TODO: Implement the agent's anticipation mechanism
+        self.anticipated_outcome = 0
         return self._action
 
     def anticipation(self):
-        """ computing the anticipated outcome from the latest action """
-        # TODO: Implement the agent's anticipation mechanism
-        self.anticipated_outcome = 0
+        """ Returning the anticipated outcome that was computed when choosing the action """
         return self.anticipated_outcome
 
     def satisfaction(self, new_outcome):
@@ -37,6 +37,7 @@ class Agent:
 class Environment1:
     """ In Environment 1, action 0 yields outcome 0, action 1 yields outcome 1 """
     def outcome(self, action):
+        # return int(input("entre 0 1 ou 2"))
         if action == 0:
             return 0
         else:
