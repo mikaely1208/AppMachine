@@ -63,7 +63,7 @@ class TurtlePyEnacter:
 if __name__ == '__main__':
     """ Main """
     x = TurtlePyEnacter()
-    interaction_step = 0
+    interaction_step = 0 # Prevents triggering a new interaction before the previous is finished
 
     def k1():
         global interaction_step
