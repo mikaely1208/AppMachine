@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-# TODO Import the Turtlesim environment when ROS is installed
-# from turtlesim_enacter import TurtleSimEnacter
+# TODO Import other environments
+# from turtlesim_enacter import TurtleSimEnacter # requires ROS
+from turtlepy_enacter import TurtlePyEnacter
 
 # Olivier Georgeon, 2020.
-# This code is used to teach Develpmental AI.
+# This code is used to teach Developmental AI.
 
 
 class Agent:
@@ -71,5 +72,6 @@ a = Agent(hedonist_table)
 e = Environment1()
 # e = Environment2()
 # e = TurtleSimEnacter()
+# e = TurtlePyEnacter()
 
 world(a, e)

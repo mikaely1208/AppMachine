@@ -4,7 +4,7 @@ from geometry_msgs.msg import Twist
 from turtlesim.msg import Pose
 
 # Olivier Georgeon, 2020.
-# This code is used to teach Develpmental AI.
+# This code is used to teach Developmental AI.
 #
 # Inspired by ROS Python tutorial:
 #   * http://wiki.ros.org/turtlesim/Tutorials#Practicing_Python_with_Turtlesim
