@@ -62,14 +62,6 @@ class Environment3:
         return _outcome
 
 
-def world(agent, environment):
-    """ The main loop controlling the interaction of the agent with the environment """
-    outcome = 0
-    for i in range(11):
-        action = agent.action(outcome)
-        outcome = environment.outcome(action)
-
-
 # TODO Define the hedonist values of interactions (action, outcome)
 hedonist_table = [[-1, 1], [1, -1]]
 # TODO Choose an agent
@@ -81,4 +73,9 @@ e = Environment1()
 # e = TurtleSimEnacter()
 # e = TurtlePyEnacter()
 
-world(a, e) 
+if __name__ == '__main__':
+    """ The main loop controlling the interaction of the agent with the environment """
+    outcome = 0
+    for i in range(11):
+        action = a.action(outcome)
+        outcome = e.outcome(action)
