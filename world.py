@@ -62,7 +62,7 @@ class Environment3:
         return _outcome
 
 
-# TODO Define the hedonist values of interactions (action, outcome)
+# TODO Define the hedonist valance of interactions (action, outcome)
 hedonist_table = [[-1, 1], [1, -1]]
 # TODO Choose an agent
 a = Agent(hedonist_table)
