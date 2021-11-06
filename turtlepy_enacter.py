@@ -39,9 +39,8 @@ class TurtlePyEnacter:
 
     def outcome(self, action):
         """ Enacting an action and returning the outcome """
-        self.turtle.color("green")
-        _outcome = 0
         for i in range(10):
+            _outcome = 0
             if action == 0:
                 # move forward
                 self.turtle.speed(1)
@@ -62,22 +61,20 @@ class TurtlePyEnacter:
             if self.turtle.xcor() < -SCREEN_WIDTH/2:
                 self.turtle.goto(-SCREEN_WIDTH/2, self.turtle.ycor())
                 _outcome = 1
-                self.turtle.color("red")
-            elif self.turtle.xcor() > SCREEN_WIDTH/2:
+            if self.turtle.xcor() > SCREEN_WIDTH/2:
                 self.turtle.goto(SCREEN_WIDTH/2, self.turtle.ycor())
                 _outcome = 1
-                self.turtle.color("red")
-            elif self.turtle.ycor() < -SCREEN_HEIGHT/2:
+            if self.turtle.ycor() < -SCREEN_HEIGHT/2:
                 self.turtle.goto(self.turtle.xcor(), -SCREEN_HEIGHT/2)
                 _outcome = 1
-                self.turtle.color("red")
-            elif self.turtle.ycor() > SCREEN_HEIGHT/2:
+            if self.turtle.ycor() > SCREEN_HEIGHT/2:
                 self.turtle.goto(self.turtle.xcor(), SCREEN_HEIGHT/2)
                 _outcome = 1
-                self.turtle.color("red")
-            else:
-                _outcome = 0
+
+            if _outcome == 0:
                 self.turtle.color("green")
+            else:
+                self.turtle.color("red")
 
         return _outcome
 
