@@ -105,9 +105,9 @@ if __name__ == '__main__':
             print(x.outcome(2))
             interaction_step = 0
 
-    x.screen.onkey(k1, "Up")  # the up arrow key
-    x.screen.onkey(k2, "Left")  # the left arrow key
-    x.screen.onkey(k3, "Right")  # you get it!
+    x.screen.onkey(k1, "Up")  # Up arrow key: go forward
+    x.screen.onkey(k2, "Left")  # Left arrow key: turn left
+    x.screen.onkey(k3, "Right")  # Right arrow key: turn right
 
     x.screen.listen()
     x.screen.mainloop()
