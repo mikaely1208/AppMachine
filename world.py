@@ -66,14 +66,14 @@ class Environment3:
 # TODO Define the hedonist valance of interactions (action, outcome)
 hedonist_table = [[1, -1], [1, -1]]
 # TODO Choose an agent
-# a = Agent(hedonist_table)
-a = Agent4(hedonist_table)
+a = Agent(hedonist_table)
+# a = Agent4(hedonist_table)
 # TODO Choose an environment
-# e = Environment1()
+e = Environment1()
 # e = Environment2()
 # e = Environment3()
 # e = TurtleSimEnacter()
-e = TurtlePyEnacter()
+# e = TurtlePyEnacter()
 
 if __name__ == '__main__':
     """ The main loop controlling the interaction of the agent with the environment """
