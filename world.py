@@ -3,7 +3,7 @@
 # This code is used to teach Developmental AI.
 # from turtlesim_enacter import TurtleSimEnacter # requires ROS
 from turtlepy_enacter import TurtlePyEnacter
-from Agent4 import Agent4
+# from Agent4 import Agent4
 
 
 class Agent:
