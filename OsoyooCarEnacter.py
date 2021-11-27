@@ -3,7 +3,7 @@
 # Requires:
 #   - A robot Osoyoo Car https://osoyoo.com/2019/11/08/omni-direction-mecanum-wheel-robotic-kit-v1/
 #   - Project https://github.com/OlivierGeorgeon/osoyoo
-#       (First tested with commit 3128c2c November 26th 2021)
+#       (First tested with commit c208810 November 27th 2021)
 #   - Python libraries pyglet and keyboard
 from EgoMemoryWindow import EgoMemoryWindow
 import pyglet
@@ -23,11 +23,11 @@ class OsoyooCarEnacter:
         """ Enacting an action and returning the outcome """
         outcome = 0
         if action == 0:
-            outcome = self.osoyoo_car_window.on_text('8')
+            outcome = self.osoyoo_car_window.on_text('8')  # Move forward
         if action == 1:
-            outcome = self.osoyoo_car_window.on_text('1')
+            outcome = self.osoyoo_car_window.on_text('1')  # Turn left
         if action == 2:
-            outcome = self.osoyoo_car_window.on_text('3')
+            outcome = self.osoyoo_car_window.on_text('3')  # Turn right
 
         # Inspired by https://stackoverflow.com/questions/61217265/
         pyglet.clock.tick()
