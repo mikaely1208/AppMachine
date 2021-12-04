@@ -3,10 +3,11 @@
 # Requires:
 #   - A robot Osoyoo Car https://osoyoo.com/2019/11/08/omni-direction-mecanum-wheel-robotic-kit-v1/
 #   - Project https://github.com/OlivierGeorgeon/osoyoo
-#       (First tested with commit c208810 November 27th 2021)
+#       (Tested with commit 33519f3 December 04th 2021)
 #   - Python libraries pyglet and keyboard
 from EgoMemoryWindow import EgoMemoryWindow
 import pyglet
+import json
 
 
 class OsoyooCarEnacter:
@@ -23,17 +24,35 @@ class OsoyooCarEnacter:
         """ Enacting an action and returning the outcome """
         outcome = 0
         if action == 0:
-            outcome = self.osoyoo_car_window.on_text('8')  # Move forward
+            # outcome = self.osoyoo_car_window.on_text('8')  # Move forward
+            self.osoyoo_car_window.async_action_trigger('8')
         if action == 1:
-            outcome = self.osoyoo_car_window.on_text('1')  # Turn left
-        if action == 2:
-            outcome = self.osoyoo_car_window.on_text('3')  # Turn right
+            # outcome = self.osoyoo_car_window.on_text('1')  # Turn left
+            self.osoyoo_car_window.async_action_trigger('1')
+        if action > 1:
+            # outcome = self.osoyoo_car_window.on_text('3')  # Turn right
+            self.osoyoo_car_window.async_action_trigger('3')
 
-        # Inspired by https://stackoverflow.com/questions/61217265/
+        # Wait for the outcome while processing pyglet events
+        while self.osoyoo_car_window.async_flag < 2:
+            # Inspired by https://stackoverflow.com/questions/61217265/
+            pyglet.clock.tick()
+            self.osoyoo_car_window.dispatch_events()
+            self.osoyoo_car_window.on_draw()
+            self.osoyoo_car_window.flip()
+
+        self.osoyoo_car_window.process_outcome(self.osoyoo_car_window.async_action, self.osoyoo_car_window.async_outcome_string)
+        self.osoyoo_car_window.async_flag = 0
+
         pyglet.clock.tick()
         self.osoyoo_car_window.dispatch_events()
         self.osoyoo_car_window.on_draw()
         self.osoyoo_car_window.flip()
+
+        outcome = 0
+        json_outcome = json.loads(self.osoyoo_car_window.async_outcome_string)
+        if 'floor_outcome' in json_outcome:
+            outcome = json_outcome['floor_outcome']
 
         return int(outcome)
 
@@ -41,4 +60,9 @@ class OsoyooCarEnacter:
 if __name__ == "__main__":
     """ Run in interactive mode """
     e = OsoyooCarEnacter()
-    pyglet.app.run()
+
+    _outcome = 0
+    for i in range(10):
+        _action = input("Enter action: ")
+        _outcome = e.outcome(int(_action))
+        print("Action: " + _action + " Outcome: " + str(_outcome))
