@@ -3,18 +3,22 @@
 # Requires:
 #   - A robot Osoyoo Car https://osoyoo.com/2019/11/08/omni-direction-mecanum-wheel-robotic-kit-v1/
 #   - Project https://github.com/OlivierGeorgeon/osoyoo
-#       (Tested with commit 33519f3 December 04th 2021)
+#       (Tested with commit dcc64a2 January 23th 2022)
 #   - Python libraries pyglet and keyboard
 from EgoMemoryWindow import EgoMemoryWindow
+from Controller import Controller
 import pyglet
 import json
 
 
 class OsoyooCarEnacter:
     def __init__(self):
-        """ Instantiating the robot's egocentric spatial memory window """
+        # Instantiating the robot's egocentric spatial memory window
         self.osoyoo_car_window = EgoMemoryWindow(600)
         self.osoyoo_car_window.zoom_level = 2
+
+        # The controller
+        self.controller = Controller(self.osoyoo_car_window)
 
         self.osoyoo_car_window.dispatch_events()
         self.osoyoo_car_window.on_draw()
@@ -22,43 +26,41 @@ class OsoyooCarEnacter:
 
     def outcome(self, action):
         """ Enacting an action and returning the outcome """
-        outcome = 0
+        # Trigger the asynchronous communication
         if action == 0:
-            # outcome = self.osoyoo_car_window.on_text('8')  # Move forward
-            self.osoyoo_car_window.async_action_trigger('8')
+            self.controller.enact('8')
         if action == 1:
-            # outcome = self.osoyoo_car_window.on_text('1')  # Turn left
-            self.osoyoo_car_window.async_action_trigger('1')
+            self.controller.enact('1')
         if action > 1:
-            # outcome = self.osoyoo_car_window.on_text('3')  # Turn right
-            self.osoyoo_car_window.async_action_trigger('3')
+            self.controller.enact('3')
 
         # Wait for the outcome while processing pyglet events
-        while self.osoyoo_car_window.async_flag < 2:
+        while self.controller.enact_step < 2:
             # Inspired by https://stackoverflow.com/questions/61217265/
             pyglet.clock.tick()
             self.osoyoo_car_window.dispatch_events()
             self.osoyoo_car_window.on_draw()
             self.osoyoo_car_window.flip()
 
-        self.osoyoo_car_window.process_outcome(self.osoyoo_car_window.async_action, self.osoyoo_car_window.async_outcome_string)
-        self.osoyoo_car_window.async_flag = 0
-
+        # Update the Egocentric Memory Window
+        self.controller.update_model()
+        self.controller.enact_step = 0
         pyglet.clock.tick()
         self.osoyoo_car_window.dispatch_events()
         self.osoyoo_car_window.on_draw()
         self.osoyoo_car_window.flip()
 
+        # Return the outcome based on floor change
         outcome = 0
-        json_outcome = json.loads(self.osoyoo_car_window.async_outcome_string)
-        if 'floor_outcome' in json_outcome:
-            outcome = json_outcome['floor_outcome']
+        json_outcome = json.loads(self.controller.outcome_string)
+        if 'floor' in json_outcome:
+            outcome = json_outcome['floor']
 
         return int(outcome)
 
 
+# Testing the Osoyoo Car Enacter but controlling the robot from the console
 if __name__ == "__main__":
-    """ Run in interactive mode """
     e = OsoyooCarEnacter()
 
     _outcome = 0
