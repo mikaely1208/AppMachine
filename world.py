@@ -15,6 +15,7 @@ class Agent:
         self._action = None
         self.anticipated_outcome = None
         self.compteur = 0
+        self.previous_outcome = 0
     def action(self, outcome):
         """ tracing the previous cycle """
         if self._action is not None:
@@ -30,11 +31,16 @@ class Agent:
 
         # TODO: Implement the agent's decision mechanism
         self._action = 0
-        if self.compteur > 4:
+        if self.previous_outcome == outcome:
+            self.compteur+=1
+        if self.compteur > 5:
             self._action = 1
-            if self.compteur > 9:
+             if self.compteur > 9:
                 self._action = 0
-                self.compteur = 0
+                 self.compteur = 0
+
+
+
 
 
 
@@ -80,6 +86,7 @@ class Environment3:
 class Environment4:
     def outcome(self, action):
         return random.randint(0, 1)
+
 
 # TODO Define the hedonist valance of interactions (action, outcome)
 hedonist_table = [[-1, 1], [-1, 1]]
