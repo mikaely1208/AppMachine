@@ -13,7 +13,7 @@ class Agent:
         self.hedonist_table = _hedonist_table
         self._action = None
         self.anticipated_outcome = None
-
+        self.compteur = 0
     def action(self, outcome):
         """ tracing the previous cycle """
         if self._action is not None:
@@ -21,14 +21,27 @@ class Agent:
                   ", Anticipation: " + str(self.anticipated_outcome) +
                   ", Outcome: " + str(outcome) +
                   ", Satisfaction: (anticipation: " + str(self.anticipated_outcome == outcome) +
-                  ", valence: " + str(self.hedonist_table[self._action][outcome]) + ")")
+                  ", valence: " + str(self.hedonist_table[self._action][outcome]) +
+                  ", compteur: " + str(self.compteur) + ")")
+        self.compteur+=1
 
         """ Computing the next action to enact """
+
         # TODO: Implement the agent's decision mechanism
         self._action = 0
+        if self.compteur > 4:
+            self._action = 1
+            if self.compteur > 9:
+                self._action = 0
+                self.compteur = 0
+
+
+
         # TODO: Implement the agent's anticipation mechanism
         self.anticipated_outcome = 0
         return self._action
+
+
 
 
 class Environment1:
@@ -70,8 +83,8 @@ hedonist_table = [[-1, 1], [-1, 1]]
 a = Agent(hedonist_table)
 # a = Agent5(hedonist_table)
 # TODO Choose an environment
-e = Environment1()
-# e = Environment2()
+#e = Environment1()
+e = Environment2()
 # e = Environment3()
 # e = TurtleSimEnacter()
 # e = TurtlePyEnacter()
@@ -83,3 +96,4 @@ if __name__ == '__main__':
     for i in range(70):
         action = a.action(outcome)
         outcome = e.outcome(action)
+
