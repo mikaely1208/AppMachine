@@ -78,7 +78,7 @@ e = Environment1()
 # e = OsoyooCarEnacter()
 
 if __name__ == '__main__':
-    """ The main loop controlling the interaction of the agent with the environment """
+    """ The main loop controlling the interaction of the agent with uwu the environment """
     outcome = 0
     for i in range(70):
         action = a.action(outcome)
