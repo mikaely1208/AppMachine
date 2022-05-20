@@ -6,6 +6,7 @@ from turtlepy_enacter import TurtlePyEnacter
 # from Agent5 import Agent5
 # from OsoyooCarEnacter import OsoyooCarEnacter
 import random
+from Agent2 import Agent2
 
 
 class Agent:
