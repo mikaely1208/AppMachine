@@ -15,9 +15,14 @@ class Agent:
         self._action = None
         self.anticipated_outcome = None
         self.compteur = 0
-        self.previous_outcome = 0
+        self.previous_outcome = None
     def action(self, outcome):
         """ tracing the previous cycle """
+        if self.previous_outcome == outcome:
+            self.compteur+=1
+        else:
+            self.compteur = 0
+
         if self._action is not None:
             print("Action: " + str(self._action) +
                   ", Anticipation: " + str(self.anticipated_outcome) +
@@ -25,27 +30,26 @@ class Agent:
                   ", Satisfaction: (anticipation: " + str(self.anticipated_outcome == outcome) +
                   ", valence: " + str(self.hedonist_table[self._action][outcome]) +
                   ", compteur: " + str(self.compteur) + ")")
-        self.compteur+=1
+        #self.compteur
 
         """ Computing the next action to enact """
 
         # TODO: Implement the agent's decision mechanism
         self._action = 0
-        if self.previous_outcome == outcome:
-            self.compteur+=1
-        if self.compteur > 5:
-            self._action = 1
-             if self.compteur > 9:
+
+        if self.compteur >= 2:
+                #self._action = 1
+            self.compteur = 0
+            if self._action == 0:
+                self._action = 1
+
+            elif self._action == 1:
                 self._action = 0
-                 self.compteur = 0
-
-
-
-
 
 
         # TODO: Implement the agent's anticipation mechanism
         self.anticipated_outcome = 0
+        self.previous_outcome = outcome
         return self._action
 
 
