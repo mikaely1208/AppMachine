@@ -1,11 +1,7 @@
 #!/usr/bin/env python
 import turtle
+from Agent4 import Agent4
 
-# Olivier Georgeon, 2021.
-# This code is used to teach Developmental AI.
-#
-# Inspired by Turtle Python tutorial:
-#   * https://www.javatpoint.com/python-turtle-programming
 
 SCREEN_WIDTH = 400
 SCREEN_HEIGHT = 300
